@@ -8,4 +8,13 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/User'
+export type * from './models/Profile'
+export type * from './models/Category'
+export type * from './models/Course'
+export type * from './models/Section'
+export type * from './models/SubSection'
+export type * from './models/RatingAndReview'
+export type * from './models/CourseProgress'
+export type * from './models/OTP'
 export type * from './commonInputTypes'
