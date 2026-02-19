@@ -45,7 +45,6 @@ model Profile {
   dateOfBirth   String?
   about         String?
   contactNumber String?
-
   user          User?
 }
 
