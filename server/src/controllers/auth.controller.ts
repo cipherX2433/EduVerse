@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { SigninInput, SignupInput } from "../types/auth.types";
 import { AuthService } from "../service/authService";
 import { HTTP_STATUS } from "../types/http_status";
-import { sendVerficationOTP, verifyOTPService } from "../service/otpService";
+import { sendVerificationOTP, verifyOTPService } from "../service/otpService";
 
 export const signup = async (req: Request<{}, {}, SignupInput>, res: Response): Promise<void> => {
     try{
@@ -61,7 +61,7 @@ export const sendOtpController = async (req: Request, res: Response) => {
       });
     }
 
-    const result = await sendVerficationOTP(email);
+    const result = await sendVerificationOTP(email);
 
     return res.status(HTTP_STATUS.OK).json({
       success: true,

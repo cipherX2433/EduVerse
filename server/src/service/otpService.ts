@@ -11,79 +11,56 @@ export const generateOTP = (): string => {
     return crypto.randomInt(100000, 999999).toString();
 }
 
-export const sendVerficationOTP = async (
+export const sendVerificationOTP = async (
     email: string
-): Promise<{message: string}> => {
-
-    const cooldownKey = `otp:cooldown:${email}`;
-    const isCooldown = await redis.get(cooldownKey);
-
-    if(isCooldown){
-        throw new Error("Please wait before requesting a new Otp");
+  ): Promise<{ message: string }> => {
+  
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+  
+    if (!user) {
+      throw new Error("User not found");
     }
-
+  
     const otp = generateOTP();
-
-
-
-    const recentOTP = await prisma.oTP.findFirst({
-        where: {email},
-        orderBy: { createdAt: "desc" },
-    });
-
-    if(recentOTP){
-        const timeDiff = Date.now() - recentOTP.createdAt.getTime();
-
-        if(timeDiff < 60 * 1000){
-            throw new Error("Please wait before requesting new OTP");
-        }
-    }
-
-    await prisma.oTP.create({
-        data: {
-            email,
-            otp,
-        },
-    });
-
+  
+    await redis.set(`otp:${email}`, otp, { EX: 300 });
+  
     await mailSender(
-        email,
-        "Verify your account",
-        otpTemplate(otp),
+      email,
+      "Verify your account",
+      otpTemplate(user.firstName, user.lastName, otp)  // 👈 pass name here
     );
-
+  
     return { message: "OTP sent successfully" };
-}
+  };
 
 export const verifyOTPService = async(
     email: string,
     otp: string
 ): Promise<{message: string}> => {
-    const latestOtp = await prisma.oTP.findFirst({
-        where: { email },
-        orderBy: { createdAt: "desc" },
-    });
 
     const user = await prisma.user.findUnique({
         where: { email },
     });
 
-    if(user?.verified === true){
-        throw new Error("User is already verified");
+    if(!user){
+        throw new Error("User not found");
     }
 
-    if(!latestOtp){
-        throw new Error("OTP is not created");
+    if(user?.verified){
+        throw new Error("User already verified");
     }
 
-    const isExpired = Date.now() - latestOtp.createdAt.getTime() > 5 * 60 * 1000;
+    const storedOtp = await redis.get(`otp:${email}`);
 
-    if(isExpired){
-        throw new Error("OTP is expired, generate new Otp");
+    if(!storedOtp){
+        throw new Error("OTP Expired or not generated");
     }
 
-    if(latestOtp.otp !== otp){
-        throw new Error("Incorrect otp");
+    if(storedOtp !== otp){
+        throw new Error("Incorrect OTP");
     }
 
     await prisma.user.update({
@@ -91,8 +68,7 @@ export const verifyOTPService = async(
         data: { verified: true },
     }); 
 
-    await prisma.oTP.deleteMany({
-        where: { email },
-    });
+    await redis.del(`otp:${email}`);
+
     return { message: "Account verified successfully" };
 }
