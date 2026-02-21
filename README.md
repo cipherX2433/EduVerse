@@ -200,26 +200,26 @@ course reference
 Base URL:
 
 /api
-🔐 Authentication Routes
-Method	Endpoint	Description
-POST	/api/auth/signup	Register new user
-POST	/api/auth/login	Login and get JWT
-POST	/api/auth/verify-otp	Verify email OTP
-POST	/api/auth/forgot-password	Send password reset email
-POST	/api/auth/reset-password	Reset password
-📚 Course Routes
-Method	Endpoint	Description
-GET	/api/courses	Get all courses
-GET	/api/courses/:id	Get course details
-POST	/api/courses	Create new course
-PUT	/api/courses/:id	Update course
-DELETE	/api/courses/:id	Delete course
-POST	/api/courses/:id/rate	Add rating
-💳 Payment Routes
-Method	Endpoint	Description
-POST	/api/payment/create-order	Create Razorpay order
-POST	/api/payment/verify	Verify payment
-🛠 Installation Guide
+## Authentication Routes
+- Method	Endpoint	Description
+- POST	/api/auth/signup	Register new user
+- POST	/api/auth/login	Login and get JWT
+- POST	/api/auth/verify-otp	Verify email OTP
+- POST	/api/auth/forgot-password	Send password reset email
+- POST	/api/auth/reset-password	Reset password
+## Course Routes
+- Method	Endpoint	Description
+- GET	/api/courses	Get all courses
+- GET	/api/courses/:id	Get course details
+- POST	/api/courses	Create new course
+- PUT	/api/courses/:id	Update course
+- DELETE	/api/courses/:id	Delete course
+- POST	/api/courses/:id/rate	Add rating
+## Payment Routes
+- Method	Endpoint	Description
+- POST	/api/payment/create-order	Create Razorpay order
+- POST	/api/payment/verify	Verify payment
+## Installation Guide
 1️⃣ Clone Repository
 git clone <repo_url>
 cd eduverse-backend
