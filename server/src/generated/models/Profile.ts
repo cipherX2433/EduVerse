@@ -288,9 +288,9 @@ export type ProfileUncheckedUpdateManyInput = {
   contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-export type ProfileScalarRelationFilter = {
-  is?: Prisma.ProfileWhereInput
-  isNot?: Prisma.ProfileWhereInput
+export type ProfileNullableScalarRelationFilter = {
+  is?: Prisma.ProfileWhereInput | null
+  isNot?: Prisma.ProfileWhereInput | null
 }
 
 export type ProfileCountOrderByAggregateInput = {
@@ -323,10 +323,12 @@ export type ProfileCreateNestedOneWithoutUserInput = {
   connect?: Prisma.ProfileWhereUniqueInput
 }
 
-export type ProfileUpdateOneRequiredWithoutUserNestedInput = {
+export type ProfileUpdateOneWithoutUserNestedInput = {
   create?: Prisma.XOR<Prisma.ProfileCreateWithoutUserInput, Prisma.ProfileUncheckedCreateWithoutUserInput>
   connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutUserInput
   upsert?: Prisma.ProfileUpsertWithoutUserInput
+  disconnect?: Prisma.ProfileWhereInput | boolean
+  delete?: Prisma.ProfileWhereInput | boolean
   connect?: Prisma.ProfileWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutUserInput, Prisma.ProfileUpdateWithoutUserInput>, Prisma.ProfileUncheckedUpdateWithoutUserInput>
 }

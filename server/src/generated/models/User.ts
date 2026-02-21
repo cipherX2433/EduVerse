@@ -32,7 +32,7 @@ export type UserMinAggregateOutputType = {
   password: string | null
   accountType: $Enums.AccountType | null
   active: boolean | null
-  approved: boolean | null
+  verified: boolean | null
   image: string | null
   token: string | null
   resetPasswordExpires: Date | null
@@ -49,7 +49,7 @@ export type UserMaxAggregateOutputType = {
   password: string | null
   accountType: $Enums.AccountType | null
   active: boolean | null
-  approved: boolean | null
+  verified: boolean | null
   image: string | null
   token: string | null
   resetPasswordExpires: Date | null
@@ -66,7 +66,7 @@ export type UserCountAggregateOutputType = {
   password: number
   accountType: number
   active: number
-  approved: number
+  verified: number
   image: number
   token: number
   resetPasswordExpires: number
@@ -85,7 +85,7 @@ export type UserMinAggregateInputType = {
   password?: true
   accountType?: true
   active?: true
-  approved?: true
+  verified?: true
   image?: true
   token?: true
   resetPasswordExpires?: true
@@ -102,7 +102,7 @@ export type UserMaxAggregateInputType = {
   password?: true
   accountType?: true
   active?: true
-  approved?: true
+  verified?: true
   image?: true
   token?: true
   resetPasswordExpires?: true
@@ -119,7 +119,7 @@ export type UserCountAggregateInputType = {
   password?: true
   accountType?: true
   active?: true
-  approved?: true
+  verified?: true
   image?: true
   token?: true
   resetPasswordExpires?: true
@@ -209,11 +209,11 @@ export type UserGroupByOutputType = {
   password: string
   accountType: $Enums.AccountType
   active: boolean
-  approved: boolean
-  image: string
+  verified: boolean | null
+  image: string | null
   token: string | null
   resetPasswordExpires: Date | null
-  profileId: string
+  profileId: string | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -247,14 +247,14 @@ export type UserWhereInput = {
   password?: Prisma.StringFilter<"User"> | string
   accountType?: Prisma.EnumAccountTypeFilter<"User"> | $Enums.AccountType
   active?: Prisma.BoolFilter<"User"> | boolean
-  approved?: Prisma.BoolFilter<"User"> | boolean
-  image?: Prisma.StringFilter<"User"> | string
+  verified?: Prisma.BoolNullableFilter<"User"> | boolean | null
+  image?: Prisma.StringNullableFilter<"User"> | string | null
   token?: Prisma.StringNullableFilter<"User"> | string | null
   resetPasswordExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  profileId?: Prisma.StringFilter<"User"> | string
+  profileId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  profile?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
+  profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   courses?: Prisma.CourseListRelationFilter
   enrolledCourses?: Prisma.CourseListRelationFilter
   ratings?: Prisma.RatingAndReviewListRelationFilter
@@ -269,11 +269,11 @@ export type UserOrderByWithRelationInput = {
   password?: Prisma.SortOrder
   accountType?: Prisma.SortOrder
   active?: Prisma.SortOrder
-  approved?: Prisma.SortOrder
-  image?: Prisma.SortOrder
+  verified?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   token?: Prisma.SortOrderInput | Prisma.SortOrder
   resetPasswordExpires?: Prisma.SortOrderInput | Prisma.SortOrder
-  profileId?: Prisma.SortOrder
+  profileId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   profile?: Prisma.ProfileOrderByWithRelationInput
@@ -295,13 +295,13 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   password?: Prisma.StringFilter<"User"> | string
   accountType?: Prisma.EnumAccountTypeFilter<"User"> | $Enums.AccountType
   active?: Prisma.BoolFilter<"User"> | boolean
-  approved?: Prisma.BoolFilter<"User"> | boolean
-  image?: Prisma.StringFilter<"User"> | string
+  verified?: Prisma.BoolNullableFilter<"User"> | boolean | null
+  image?: Prisma.StringNullableFilter<"User"> | string | null
   token?: Prisma.StringNullableFilter<"User"> | string | null
   resetPasswordExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  profile?: Prisma.XOR<Prisma.ProfileScalarRelationFilter, Prisma.ProfileWhereInput>
+  profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   courses?: Prisma.CourseListRelationFilter
   enrolledCourses?: Prisma.CourseListRelationFilter
   ratings?: Prisma.RatingAndReviewListRelationFilter
@@ -316,11 +316,11 @@ export type UserOrderByWithAggregationInput = {
   password?: Prisma.SortOrder
   accountType?: Prisma.SortOrder
   active?: Prisma.SortOrder
-  approved?: Prisma.SortOrder
-  image?: Prisma.SortOrder
+  verified?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   token?: Prisma.SortOrderInput | Prisma.SortOrder
   resetPasswordExpires?: Prisma.SortOrderInput | Prisma.SortOrder
-  profileId?: Prisma.SortOrder
+  profileId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -339,11 +339,11 @@ export type UserScalarWhereWithAggregatesInput = {
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   accountType?: Prisma.EnumAccountTypeWithAggregatesFilter<"User"> | $Enums.AccountType
   active?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
-  approved?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
-  image?: Prisma.StringWithAggregatesFilter<"User"> | string
+  verified?: Prisma.BoolNullableWithAggregatesFilter<"User"> | boolean | null
+  image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   token?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   resetPasswordExpires?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-  profileId?: Prisma.StringWithAggregatesFilter<"User"> | string
+  profileId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -356,13 +356,13 @@ export type UserCreateInput = {
   password: string
   accountType: $Enums.AccountType
   active?: boolean
-  approved?: boolean
-  image: string
+  verified?: boolean | null
+  image?: string | null
   token?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  profile: Prisma.ProfileCreateNestedOneWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseCreateNestedManyWithoutInstructorInput
   enrolledCourses?: Prisma.CourseCreateNestedManyWithoutStudentsEnrolledInput
   ratings?: Prisma.RatingAndReviewCreateNestedManyWithoutUserInput
@@ -377,11 +377,11 @@ export type UserUncheckedCreateInput = {
   password: string
   accountType: $Enums.AccountType
   active?: boolean
-  approved?: boolean
-  image: string
+  verified?: boolean | null
+  image?: string | null
   token?: string | null
   resetPasswordExpires?: Date | string | null
-  profileId: string
+  profileId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutInstructorInput
@@ -398,13 +398,13 @@ export type UserUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   accountType?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.StringFieldUpdateOperationsInput | string
+  verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  profile?: Prisma.ProfileUpdateOneRequiredWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUpdateManyWithoutInstructorNestedInput
   enrolledCourses?: Prisma.CourseUpdateManyWithoutStudentsEnrolledNestedInput
   ratings?: Prisma.RatingAndReviewUpdateManyWithoutUserNestedInput
@@ -419,11 +419,11 @@ export type UserUncheckedUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   accountType?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.StringFieldUpdateOperationsInput | string
+  verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  profileId?: Prisma.StringFieldUpdateOperationsInput | string
+  profileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUncheckedUpdateManyWithoutInstructorNestedInput
@@ -440,11 +440,11 @@ export type UserCreateManyInput = {
   password: string
   accountType: $Enums.AccountType
   active?: boolean
-  approved?: boolean
-  image: string
+  verified?: boolean | null
+  image?: string | null
   token?: string | null
   resetPasswordExpires?: Date | string | null
-  profileId: string
+  profileId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -457,8 +457,8 @@ export type UserUpdateManyMutationInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   accountType?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.StringFieldUpdateOperationsInput | string
+  verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -473,11 +473,11 @@ export type UserUncheckedUpdateManyInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   accountType?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.StringFieldUpdateOperationsInput | string
+  verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  profileId?: Prisma.StringFieldUpdateOperationsInput | string
+  profileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -490,7 +490,7 @@ export type UserCountOrderByAggregateInput = {
   password?: Prisma.SortOrder
   accountType?: Prisma.SortOrder
   active?: Prisma.SortOrder
-  approved?: Prisma.SortOrder
+  verified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   token?: Prisma.SortOrder
   resetPasswordExpires?: Prisma.SortOrder
@@ -507,7 +507,7 @@ export type UserMaxOrderByAggregateInput = {
   password?: Prisma.SortOrder
   accountType?: Prisma.SortOrder
   active?: Prisma.SortOrder
-  approved?: Prisma.SortOrder
+  verified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   token?: Prisma.SortOrder
   resetPasswordExpires?: Prisma.SortOrder
@@ -524,7 +524,7 @@ export type UserMinOrderByAggregateInput = {
   password?: Prisma.SortOrder
   accountType?: Prisma.SortOrder
   active?: Prisma.SortOrder
-  approved?: Prisma.SortOrder
+  verified?: Prisma.SortOrder
   image?: Prisma.SortOrder
   token?: Prisma.SortOrder
   resetPasswordExpires?: Prisma.SortOrder
@@ -563,6 +563,10 @@ export type EnumAccountTypeFieldUpdateOperationsInput = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
 }
 
 export type NullableStringFieldUpdateOperationsInput = {
@@ -697,8 +701,8 @@ export type UserCreateWithoutProfileInput = {
   password: string
   accountType: $Enums.AccountType
   active?: boolean
-  approved?: boolean
-  image: string
+  verified?: boolean | null
+  image?: string | null
   token?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
@@ -717,8 +721,8 @@ export type UserUncheckedCreateWithoutProfileInput = {
   password: string
   accountType: $Enums.AccountType
   active?: boolean
-  approved?: boolean
-  image: string
+  verified?: boolean | null
+  image?: string | null
   token?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
@@ -753,8 +757,8 @@ export type UserUpdateWithoutProfileInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   accountType?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.StringFieldUpdateOperationsInput | string
+  verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -773,8 +777,8 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   accountType?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.StringFieldUpdateOperationsInput | string
+  verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -793,13 +797,13 @@ export type UserCreateWithoutCoursesInput = {
   password: string
   accountType: $Enums.AccountType
   active?: boolean
-  approved?: boolean
-  image: string
+  verified?: boolean | null
+  image?: string | null
   token?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  profile: Prisma.ProfileCreateNestedOneWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   enrolledCourses?: Prisma.CourseCreateNestedManyWithoutStudentsEnrolledInput
   ratings?: Prisma.RatingAndReviewCreateNestedManyWithoutUserInput
   courseProgress?: Prisma.CourseProgressCreateNestedManyWithoutUserInput
@@ -813,11 +817,11 @@ export type UserUncheckedCreateWithoutCoursesInput = {
   password: string
   accountType: $Enums.AccountType
   active?: boolean
-  approved?: boolean
-  image: string
+  verified?: boolean | null
+  image?: string | null
   token?: string | null
   resetPasswordExpires?: Date | string | null
-  profileId: string
+  profileId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   enrolledCourses?: Prisma.CourseUncheckedCreateNestedManyWithoutStudentsEnrolledInput
@@ -838,13 +842,13 @@ export type UserCreateWithoutEnrolledCoursesInput = {
   password: string
   accountType: $Enums.AccountType
   active?: boolean
-  approved?: boolean
-  image: string
+  verified?: boolean | null
+  image?: string | null
   token?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  profile: Prisma.ProfileCreateNestedOneWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseCreateNestedManyWithoutInstructorInput
   ratings?: Prisma.RatingAndReviewCreateNestedManyWithoutUserInput
   courseProgress?: Prisma.CourseProgressCreateNestedManyWithoutUserInput
@@ -858,11 +862,11 @@ export type UserUncheckedCreateWithoutEnrolledCoursesInput = {
   password: string
   accountType: $Enums.AccountType
   active?: boolean
-  approved?: boolean
-  image: string
+  verified?: boolean | null
+  image?: string | null
   token?: string | null
   resetPasswordExpires?: Date | string | null
-  profileId: string
+  profileId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutInstructorInput
@@ -894,13 +898,13 @@ export type UserUpdateWithoutCoursesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   accountType?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.StringFieldUpdateOperationsInput | string
+  verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  profile?: Prisma.ProfileUpdateOneRequiredWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   enrolledCourses?: Prisma.CourseUpdateManyWithoutStudentsEnrolledNestedInput
   ratings?: Prisma.RatingAndReviewUpdateManyWithoutUserNestedInput
   courseProgress?: Prisma.CourseProgressUpdateManyWithoutUserNestedInput
@@ -914,11 +918,11 @@ export type UserUncheckedUpdateWithoutCoursesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   accountType?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.StringFieldUpdateOperationsInput | string
+  verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  profileId?: Prisma.StringFieldUpdateOperationsInput | string
+  profileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrolledCourses?: Prisma.CourseUncheckedUpdateManyWithoutStudentsEnrolledNestedInput
@@ -953,11 +957,11 @@ export type UserScalarWhereInput = {
   password?: Prisma.StringFilter<"User"> | string
   accountType?: Prisma.EnumAccountTypeFilter<"User"> | $Enums.AccountType
   active?: Prisma.BoolFilter<"User"> | boolean
-  approved?: Prisma.BoolFilter<"User"> | boolean
-  image?: Prisma.StringFilter<"User"> | string
+  verified?: Prisma.BoolNullableFilter<"User"> | boolean | null
+  image?: Prisma.StringNullableFilter<"User"> | string | null
   token?: Prisma.StringNullableFilter<"User"> | string | null
   resetPasswordExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  profileId?: Prisma.StringFilter<"User"> | string
+  profileId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }
@@ -970,13 +974,13 @@ export type UserCreateWithoutRatingsInput = {
   password: string
   accountType: $Enums.AccountType
   active?: boolean
-  approved?: boolean
-  image: string
+  verified?: boolean | null
+  image?: string | null
   token?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  profile: Prisma.ProfileCreateNestedOneWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseCreateNestedManyWithoutInstructorInput
   enrolledCourses?: Prisma.CourseCreateNestedManyWithoutStudentsEnrolledInput
   courseProgress?: Prisma.CourseProgressCreateNestedManyWithoutUserInput
@@ -990,11 +994,11 @@ export type UserUncheckedCreateWithoutRatingsInput = {
   password: string
   accountType: $Enums.AccountType
   active?: boolean
-  approved?: boolean
-  image: string
+  verified?: boolean | null
+  image?: string | null
   token?: string | null
   resetPasswordExpires?: Date | string | null
-  profileId: string
+  profileId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutInstructorInput
@@ -1026,13 +1030,13 @@ export type UserUpdateWithoutRatingsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   accountType?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.StringFieldUpdateOperationsInput | string
+  verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  profile?: Prisma.ProfileUpdateOneRequiredWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUpdateManyWithoutInstructorNestedInput
   enrolledCourses?: Prisma.CourseUpdateManyWithoutStudentsEnrolledNestedInput
   courseProgress?: Prisma.CourseProgressUpdateManyWithoutUserNestedInput
@@ -1046,11 +1050,11 @@ export type UserUncheckedUpdateWithoutRatingsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   accountType?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.StringFieldUpdateOperationsInput | string
+  verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  profileId?: Prisma.StringFieldUpdateOperationsInput | string
+  profileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUncheckedUpdateManyWithoutInstructorNestedInput
@@ -1066,13 +1070,13 @@ export type UserCreateWithoutCourseProgressInput = {
   password: string
   accountType: $Enums.AccountType
   active?: boolean
-  approved?: boolean
-  image: string
+  verified?: boolean | null
+  image?: string | null
   token?: string | null
   resetPasswordExpires?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  profile: Prisma.ProfileCreateNestedOneWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseCreateNestedManyWithoutInstructorInput
   enrolledCourses?: Prisma.CourseCreateNestedManyWithoutStudentsEnrolledInput
   ratings?: Prisma.RatingAndReviewCreateNestedManyWithoutUserInput
@@ -1086,11 +1090,11 @@ export type UserUncheckedCreateWithoutCourseProgressInput = {
   password: string
   accountType: $Enums.AccountType
   active?: boolean
-  approved?: boolean
-  image: string
+  verified?: boolean | null
+  image?: string | null
   token?: string | null
   resetPasswordExpires?: Date | string | null
-  profileId: string
+  profileId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutInstructorInput
@@ -1122,13 +1126,13 @@ export type UserUpdateWithoutCourseProgressInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   accountType?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.StringFieldUpdateOperationsInput | string
+  verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  profile?: Prisma.ProfileUpdateOneRequiredWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUpdateManyWithoutInstructorNestedInput
   enrolledCourses?: Prisma.CourseUpdateManyWithoutStudentsEnrolledNestedInput
   ratings?: Prisma.RatingAndReviewUpdateManyWithoutUserNestedInput
@@ -1142,11 +1146,11 @@ export type UserUncheckedUpdateWithoutCourseProgressInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   accountType?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.StringFieldUpdateOperationsInput | string
+  verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  profileId?: Prisma.StringFieldUpdateOperationsInput | string
+  profileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUncheckedUpdateManyWithoutInstructorNestedInput
@@ -1162,13 +1166,13 @@ export type UserUpdateWithoutEnrolledCoursesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   accountType?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.StringFieldUpdateOperationsInput | string
+  verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  profile?: Prisma.ProfileUpdateOneRequiredWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUpdateManyWithoutInstructorNestedInput
   ratings?: Prisma.RatingAndReviewUpdateManyWithoutUserNestedInput
   courseProgress?: Prisma.CourseProgressUpdateManyWithoutUserNestedInput
@@ -1182,11 +1186,11 @@ export type UserUncheckedUpdateWithoutEnrolledCoursesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   accountType?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.StringFieldUpdateOperationsInput | string
+  verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  profileId?: Prisma.StringFieldUpdateOperationsInput | string
+  profileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUncheckedUpdateManyWithoutInstructorNestedInput
@@ -1202,11 +1206,11 @@ export type UserUncheckedUpdateManyWithoutEnrolledCoursesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   accountType?: Prisma.EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  approved?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.StringFieldUpdateOperationsInput | string
+  verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetPasswordExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  profileId?: Prisma.StringFieldUpdateOperationsInput | string
+  profileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1277,14 +1281,14 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   password?: boolean
   accountType?: boolean
   active?: boolean
-  approved?: boolean
+  verified?: boolean
   image?: boolean
   token?: boolean
   resetPasswordExpires?: boolean
   profileId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  profile?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   courses?: boolean | Prisma.User$coursesArgs<ExtArgs>
   enrolledCourses?: boolean | Prisma.User$enrolledCoursesArgs<ExtArgs>
   ratings?: boolean | Prisma.User$ratingsArgs<ExtArgs>
@@ -1300,14 +1304,14 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   accountType?: boolean
   active?: boolean
-  approved?: boolean
+  verified?: boolean
   image?: boolean
   token?: boolean
   resetPasswordExpires?: boolean
   profileId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  profile?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  profile?: boolean | Prisma.User$profileArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1318,14 +1322,14 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   accountType?: boolean
   active?: boolean
-  approved?: boolean
+  verified?: boolean
   image?: boolean
   token?: boolean
   resetPasswordExpires?: boolean
   profileId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  profile?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  profile?: boolean | Prisma.User$profileArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -1336,7 +1340,7 @@ export type UserSelectScalar = {
   password?: boolean
   accountType?: boolean
   active?: boolean
-  approved?: boolean
+  verified?: boolean
   image?: boolean
   token?: boolean
   resetPasswordExpires?: boolean
@@ -1345,9 +1349,9 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "accountType" | "active" | "approved" | "image" | "token" | "resetPasswordExpires" | "profileId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "accountType" | "active" | "verified" | "image" | "token" | "resetPasswordExpires" | "profileId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  profile?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  profile?: boolean | Prisma.User$profileArgs<ExtArgs>
   courses?: boolean | Prisma.User$coursesArgs<ExtArgs>
   enrolledCourses?: boolean | Prisma.User$enrolledCoursesArgs<ExtArgs>
   ratings?: boolean | Prisma.User$ratingsArgs<ExtArgs>
@@ -1355,16 +1359,16 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  profile?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  profile?: boolean | Prisma.User$profileArgs<ExtArgs>
 }
 export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  profile?: boolean | Prisma.ProfileDefaultArgs<ExtArgs>
+  profile?: boolean | Prisma.User$profileArgs<ExtArgs>
 }
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    profile: Prisma.$ProfilePayload<ExtArgs>
+    profile: Prisma.$ProfilePayload<ExtArgs> | null
     courses: Prisma.$CoursePayload<ExtArgs>[]
     enrolledCourses: Prisma.$CoursePayload<ExtArgs>[]
     ratings: Prisma.$RatingAndReviewPayload<ExtArgs>[]
@@ -1378,11 +1382,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     password: string
     accountType: $Enums.AccountType
     active: boolean
-    approved: boolean
-    image: string
+    verified: boolean | null
+    image: string | null
     token: string | null
     resetPasswordExpires: Date | null
-    profileId: string
+    profileId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1779,7 +1783,7 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  profile<T extends Prisma.ProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  profile<T extends Prisma.User$profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   courses<T extends Prisma.User$coursesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   enrolledCourses<T extends Prisma.User$enrolledCoursesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$enrolledCoursesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ratings<T extends Prisma.User$ratingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RatingAndReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1820,7 +1824,7 @@ export interface UserFieldRefs {
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly accountType: Prisma.FieldRef<"User", 'AccountType'>
   readonly active: Prisma.FieldRef<"User", 'Boolean'>
-  readonly approved: Prisma.FieldRef<"User", 'Boolean'>
+  readonly verified: Prisma.FieldRef<"User", 'Boolean'>
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly token: Prisma.FieldRef<"User", 'String'>
   readonly resetPasswordExpires: Prisma.FieldRef<"User", 'DateTime'>
@@ -2220,6 +2224,25 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
+}
+
+/**
+ * User.profile
+ */
+export type User$profileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Profile
+   */
+  select?: Prisma.ProfileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Profile
+   */
+  omit?: Prisma.ProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileInclude<ExtArgs> | null
+  where?: Prisma.ProfileWhereInput
 }
 
 /**

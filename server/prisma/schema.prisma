@@ -21,13 +21,13 @@ model User {
   password             String
   accountType          AccountType
   active               Boolean  @default(true)
-  approved             Boolean  @default(true)
-  image                String
+  verified             Boolean?  @default(false)
+  image                String?
   token                String?
   resetPasswordExpires DateTime?
 
-  profile              Profile  @relation(fields: [profileId], references: [id])
-  profileId            String   @unique
+  profile              Profile?  @relation(fields: [profileId], references: [id])
+  profileId            String?   @unique
 
   courses              Course[] @relation("InstructorCourses")
   enrolledCourses      Course[] @relation("StudentEnrolled")

@@ -8,7 +8,6 @@ export interface SignupInput {
     confirmPassword: string;
     accountType: AccountType;
     contactNumber?: string;
-    otp: string;
   }
   
   export interface SigninInput {

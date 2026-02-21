@@ -86,7 +86,7 @@ export const UserScalarFieldEnum = {
   password: 'password',
   accountType: 'accountType',
   active: 'active',
-  approved: 'approved',
+  verified: 'verified',
   image: 'image',
   token: 'token',
   resetPasswordExpires: 'resetPasswordExpires',
