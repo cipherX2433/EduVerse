@@ -1,7 +1,11 @@
 import { prisma } from "../lib/prisma";
+import { redis } from "../lib/redis";
 import { mailSender } from "../utils/mailSender";
 import { otpTemplate } from "../utils/otpTemplate";
 import crypto from "crypto";
+
+const OTP_EXPIRY_SECONDS = 300;
+const OTP_COOLDOWN_SECONDS = 60;
 
 export const generateOTP = (): string => {
     return crypto.randomInt(100000, 999999).toString();
@@ -10,6 +14,17 @@ export const generateOTP = (): string => {
 export const sendVerficationOTP = async (
     email: string
 ): Promise<{message: string}> => {
+
+    const cooldownKey = `otp:cooldown:${email}`;
+    const isCooldown = await redis.get(cooldownKey);
+
+    if(isCooldown){
+        throw new Error("Please wait before requesting a new Otp");
+    }
+
+    const otp = generateOTP();
+
+
 
     const recentOTP = await prisma.oTP.findFirst({
         where: {email},
@@ -23,8 +38,6 @@ export const sendVerficationOTP = async (
             throw new Error("Please wait before requesting new OTP");
         }
     }
-
-    const otp = generateOTP();
 
     await prisma.oTP.create({
         data: {

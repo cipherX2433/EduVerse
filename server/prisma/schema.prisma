@@ -130,13 +130,6 @@ model CourseProgress {
 }
 
 
-model OTP {
-  id        String   @id @default(uuid())
-  email     String
-  otp       String
-  createdAt DateTime @default(now())
-}
-
 enum AccountType {
   Admin
   Student
