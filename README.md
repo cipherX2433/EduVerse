@@ -220,6 +220,7 @@ Base URL:
 - POST	/api/payment/create-order	Create Razorpay order
 - POST	/api/payment/verify	Verify payment
 ## Installation Guide
+```
 1️⃣ Clone Repository
 git clone <repo_url>
 cd eduverse-backend
@@ -244,6 +245,7 @@ npm run dev
 Server runs at:
 
 http://localhost:5000
+```
 🧪 Testing
 
 API tested using Postman
