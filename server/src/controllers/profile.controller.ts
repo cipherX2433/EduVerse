@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
-import { getAllUserDetailsService, getEnrolledCourses } from "../service/profile.service";
+import { getAllUserDetailsService, getEnrolledCourses, instructorDashboard } from "../service/profile.service";
 import { HTTP_STATUS } from "../types/http_status";
-import { success } from "zod";
 
 
 export const getAllUser = async(req: Request, res: Response) => {
@@ -55,3 +54,28 @@ export const getEnrollCourseController = async(
           });
     }
 };
+
+export const instructorDashboardController = async(req: Request, res: Response) => {
+    try{
+        const userId = req.user?.userId;
+
+        if(!userId){
+            return res.status(HTTP_STATUS.UNAUTHORIZED).json({
+                success: false,
+                message: "User not authorized",
+            });
+        }
+
+        const result = instructorDashboard(userId);
+
+        res.status(HTTP_STATUS.OK).json({
+            success: true,
+            data: result
+        });
+    }catch(error:any){
+        res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+            success: false,
+            message: error.message,
+          });
+    }
+}

@@ -175,3 +175,36 @@ export const getEnrolledCourses = async(userId: string) => {
 
     return result;
 }
+
+export const instructorDashboard = async (
+  instructorId: string
+) => {
+
+  const courses = await prisma.course.findMany({
+    where: { instructorId },
+    include: {
+      studentsEnrolled: true,
+    },
+  });
+
+  const formattedCourses = courses.map((course) => {
+
+    const totalStudentsEnrolled =
+      course.studentsEnrolled.length;
+
+    const totalAmountGenerated =
+      (course.price ?? 0) * totalStudentsEnrolled;
+
+    return {
+      id: course.id,
+      courseName: course.courseName,
+      courseDescription: course.courseDescription,
+      price: course.price,
+      totalStudentsEnrolled,
+      totalAmountGenerated,
+      createdAt: course.createdAt,
+    };
+  });
+
+  return formattedCourses;
+};
