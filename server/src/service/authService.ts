@@ -22,16 +22,6 @@ export class AuthService {
             throw new Error("User already exists with this email");
         }
 
-        // //verify-otp
-        // const latestOTP = await prisma.oTP.findFirst({
-        //     where: { email },
-        //     orderBy: { createdAt: "desc" },
-        // });
-
-        // if(!latestOTP || latestOTP.otp !== otp){
-        //     throw new Error("Invalid OTP");
-        // }
-
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const profile = await prisma.profile.create({
